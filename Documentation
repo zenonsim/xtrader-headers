@@ -1,0 +1,24 @@
+///DOCUMENTATIONS///
+
+EVERYTHING ABOUT XTRADER:
+
+You can get the object for price, order, etc, assign it once then you are done
+
+sub:Tradingsessionstatus(exchange,market)
+	CANNOT detect auction
+	
+	is working, but can only be used for singapore
+	market can be taken by instrument.market
+
+	instrument.market:
+		For singapore market "XSES": "RY", can use trading session status
+		for "XSIM": "F2"
+
+orderdepth
+	strategy:subscribeOrderDepth(exchange,sym)
+	function is working, will get back to that later
+
+OnChart
+	Everytime it restarts, the index increases by 1 year
+	There is a max, 21 year(1098 weekly) for DBS I dont know is this the same for other counters or not
+	1098 weekly
