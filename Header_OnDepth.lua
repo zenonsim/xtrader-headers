@@ -1,3 +1,4 @@
+require "Header_OnDepth_utilities"
 --- Market best bid/ask infor: bid	,bs,	ask,	as, last, pre_close
 bid_vol          = {}
 bid_price         = {}
@@ -20,7 +21,8 @@ ex = nil
 -- Maybe we can define our own iep?
 set_IEP = {}
 
-function Initialize_Market_Depth(sym)
+function Initialize_Market_Depth(strategy,sym)
+    import_strategy(strategy)
     -- local sym = depth:code()
     -- md_bid      = {}
     md_bid[sym]      = {}
@@ -68,6 +70,7 @@ function update_market_depth(strategy, depth, level, action, fields, refresh)
     local row = 0
     local ticker = depth:code()
     local sym = depth:code()
+    -- Initialize_Market_Depth(sym)
     if not (ticker == sym) then return end
 
     local f_bid = fields & (DATA_FIELD_BID )
@@ -79,17 +82,6 @@ function update_market_depth(strategy, depth, level, action, fields, refresh)
     local act = action == DEPTH_ACTION_NEW and " New" or (action == DEPTH_ACTION_UPDATE and " Update" or " Delete" )
     if (refresh) -- if refresh is true, please ignore the paramater level, action, fields.
     then
-        -- for i = max_depth,1,-1
-        -- do
-        --     WriteLog(strategy, sym.."  :MD[ "..tostring(i).." ] = "..tostring(md_bq[sym][i]).." @ "..tostring(md_bid[sym][i]).. " / "..tostring(md_ask[sym][i]).." @ "..tostring(md_aq[sym][i]))
-        -- end
-        
-        -- if f_bid ~= 0 or f_bv ~= 0 then
-        --     update_level(strategy,depth,SIDE_BUY,level)
-        -- end
-        -- if f_ask ~= 0 or f_av ~= 0 then
-        --     update_level(strategy,depth,SIDE_SELL,level)
-        -- end
 
         if f_bid ~= 0 or f_bv ~= 0 then
             
